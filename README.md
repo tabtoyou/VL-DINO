@@ -26,7 +26,7 @@ cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각�
 다소 noisy 하지만 단어와 객체 사이의 상관관계를 파악할 수 있었습니다.  
   
 <div align="center">
-  <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src=".github/overall_process.png">
+  <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src="overall_process.png">
 </div>
   
 해당 결과를 통해 supervised 방식으로 단어와 이미지를 matching 해주지 않아도,  
