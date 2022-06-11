@@ -1,8 +1,8 @@
-# Verifying vision-language alignment with cross-attention map
+# Verifying Vision-Language Alignment with Cross-Attention Map
   
 DINO는 Vision Transformer를 self-supervised로 학습하는 방법을 제안합니다.  
 이때 저자들은 self-attention map 시각화 결과, 이미지 속 객체를 매우 뚜렷하게 구분하는 것을 확인합니다.  
-Semantic segmentation에 대한 정보를 하나도 주지 않았음에도 불구하고 아래 그림과 같이 객체를 잘 구분해 많은 관심을 받았습니다.  
+Semantic segmentation 정보를 주지 않았음에도 불구하고 아래 그림과 같이 객체를 잘 구분해 많은 관심을 받았습니다.  
 
 자세한 내용은 **Emerging Properties in Self-Supervised Vision Transformers**를 확인해주시기 바랍니다.  
 [[`blogpost`](https://ai.facebook.com/blog/dino-paws-computer-vision-with-self-supervised-transformers-and-10x-more-efficient-training)] [[`arXiv`](https://arxiv.org/abs/2104.14294)] [[`Yannic Kilcher's video`](https://www.youtube.com/watch?v=h3ij3F3cPIk)]
@@ -12,7 +12,7 @@ Semantic segmentation에 대한 정보를 하나도 주지 않았음에도 불�
 </div>
   
 위의 결과는 Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화한 것입니다.  
-[CLS] 뿐만 아니라 이미지 속 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자 실제로 관련있는 부분들의 attention이 높았습니다. 
+[CLS] 뿐만 아니라 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자 실제로 관련있는 부분들의 attention이 높았습니다. 
   
   
 ## Cross-attention visualization
