@@ -4,7 +4,7 @@ DINO는 Vision Transformer를 self-supervised로 학습하는 방법을 제안�
 이때 저자들은 self-attention map 시각화 결과, 이미지 속 객체를 매우 뚜렷하게 구분하는 것을 확인합니다.  
 Semantic segmentation 정보를 주지 않았음에도 불구하고 아래 그림과 같이 객체를 잘 구분해 많은 관심을 받았습니다.  
 
-자세한 내용은 **Emerging Properties in Self-Supervised Vision Transformers**를 확인해주시기 바랍니다.  
+자세한 내용은 **Emerging Properties in Self-Supervised Vision Transformers**(ICCV 2021) 논문을 확인해주시기 바랍니다.  
 [[`blogpost`](https://ai.facebook.com/blog/dino-paws-computer-vision-with-self-supervised-transformers-and-10x-more-efficient-training)] [[`arXiv`](https://arxiv.org/abs/2104.14294)] [[`Yannic Kilcher's video`](https://www.youtube.com/watch?v=h3ij3F3cPIk)]
 
 <div align="center">
