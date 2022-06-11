@@ -116,7 +116,9 @@ class Block(nn.Module):
 class PatchEmbed(nn.Module):
     """ Image to Patch Embedding
     """
-    def __init__(self, img_size=224, patch_size=16, in_chans=3, embed_dim=768):
+    #def __init__(self, img_size=224, patch_size=16, in_chans=3, embed_dim=768):
+    def __init__(self, img_size=256, patch_size=16, in_chans=3, embed_dim=768):
+    #def __init__(self, img_size=384, patch_size=16, in_chans=3, embed_dim=768):
         super().__init__()
         num_patches = (img_size // patch_size) * (img_size // patch_size)
         self.img_size = img_size
@@ -133,7 +135,12 @@ class PatchEmbed(nn.Module):
 
 class VisionTransformer(nn.Module):
     """ Vision Transformer """
+    '''
     def __init__(self, img_size=[224], patch_size=16, in_chans=3, num_classes=0, embed_dim=768, depth=12,
+                 num_heads=12, mlp_ratio=4., qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
+                 drop_path_rate=0., norm_layer=nn.LayerNorm, **kwargs):
+    '''
+    def __init__(self, img_size=[256], patch_size=16, in_chans=3, num_classes=0, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
                  drop_path_rate=0., norm_layer=nn.LayerNorm, **kwargs):
         super().__init__()
@@ -246,6 +253,12 @@ def vit_small(patch_size=16, **kwargs):
         qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
     return model
 
+def deit_small(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, embed_dim=384, depth=12, num_heads=6, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model
+
 
 def vit_base(patch_size=16, **kwargs):
     model = VisionTransformer(
@@ -253,6 +266,23 @@ def vit_base(patch_size=16, **kwargs):
         qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
     return model
 
+def albef_large(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model
+
+def albef_tiny(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, embed_dim=192, depth=12, num_heads=3, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model
+
+def albef_small(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, embed_dim=384, depth=12, num_heads=6, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model
 
 class DINOHead(nn.Module):
     def __init__(self, in_dim, out_dim, use_bn=False, norm_last_layer=True, nlayers=3, hidden_dim=2048, bottleneck_dim=256):

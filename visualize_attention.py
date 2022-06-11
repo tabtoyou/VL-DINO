@@ -33,6 +33,7 @@ from PIL import Image
 
 import utils
 import vision_transformer as vits
+import vit
 
 
 def apply_mask(image, mask, color, alpha=0.5):
@@ -98,7 +99,7 @@ def display_instances(image, mask, fname="test", figsize=(5, 5), blur=False, con
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Visualize Self-Attention maps')
     parser.add_argument('--arch', default='vit_small', type=str,
-        choices=['vit_tiny', 'vit_small', 'vit_base'], help='Architecture (support only ViT atm).')
+        choices=['vit_tiny', 'vit_small', 'vit_base', 'deit_small', 'albef_large', 'albef_tiny', 'albef_small'], help='Architecture (support only ViT atm).')
     parser.add_argument('--patch_size', default=8, type=int, help='Patch resolution of the model.')
     parser.add_argument('--pretrained_weights', default='', type=str,
         help="Path to pretrained weights to load.")
@@ -109,20 +110,31 @@ if __name__ == '__main__':
     parser.add_argument('--output_dir', default='.', help='Path where to save visualizations.')
     parser.add_argument("--threshold", type=float, default=None, help="""We visualize masks
         obtained by thresholding the self-attention maps to keep xx% of the mass.""")
+    parser.add_argument("--deit", default=False)
     args = parser.parse_args()
 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    
     # build model
-    model = vits.__dict__[args.arch](patch_size=args.patch_size, num_classes=0)
+    if args.deit == True:
+        model = vit.__dict__[args.arch](patch_size=args.patch_size, num_classes=0)
+    else :
+        model = vits.__dict__[args.arch](patch_size=args.patch_size, num_classes=0)
     for p in model.parameters():
         p.requires_grad = False
     model.eval()
     model.to(device)
     if os.path.isfile(args.pretrained_weights):
         state_dict = torch.load(args.pretrained_weights, map_location="cpu")
+        #for k, v in state_dict['text_encoder'].items():
+        #    print(k)
         if args.checkpoint_key is not None and args.checkpoint_key in state_dict:
             print(f"Take key {args.checkpoint_key} in provided checkpoint dict")
             state_dict = state_dict[args.checkpoint_key]
+        if args.arch == 'albef_large' or args.arch == 'albef_tiny' or args.arch=='albef_small':
+            # remove `visual_encoder.` prefix
+            state_dict = {k.replace("visual_encoder.", ""): v for k, v in state_dict['model'].items()}
+        
         # remove `module.` prefix
         state_dict = {k.replace("module.", ""): v for k, v in state_dict.items()}
         # remove `backbone.` prefix induced by multicrop wrapper
@@ -140,9 +152,22 @@ if __name__ == '__main__':
             url = "dino_vitbase16_pretrain/dino_vitbase16_pretrain.pth"
         elif args.arch == "vit_base" and args.patch_size == 8:
             url = "dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth"
+        elif args.arch == "deit_small" and args.patch_size == 16:
+            print('## no_dino deit_version')
+            url = "https://dl.fbaipublicfiles.com/deit/deit_small_patch16_224-cd65a155.pth"
+            
         if url is not None:
             print("Since no pretrained weights have been provided, we load the reference pretrained DINO weights.")
-            state_dict = torch.hub.load_state_dict_from_url(url="https://dl.fbaipublicfiles.com/dino/" + url)
+            if args.deit == True :
+                print('deit')
+                state_dict = torch.hub.load_state_dict_from_url(url=url)
+                # remove `blocks.` prefix
+                state_dict = {k: v for k, v in state_dict['model'].items()}
+                state_dict = {k.replace("head",""): v for k, v in state_dict.items()}
+                #state_dict = {k.replace("head",""): v for k, v in state_dict.items()}
+                
+            else :     
+                state_dict = torch.hub.load_state_dict_from_url(url="https://dl.fbaipublicfiles.com/dino/" + url)
             model.load_state_dict(state_dict, strict=True)
         else:
             print("There is no reference weights available for this model => We use random weights.")
@@ -177,7 +202,6 @@ if __name__ == '__main__':
     h_featmap = img.shape[-1] // args.patch_size
 
     attentions = model.get_last_selfattention(img.to(device))
-
     nh = attentions.shape[1] # number of head
 
     # we keep only the output patch attention
@@ -198,7 +222,9 @@ if __name__ == '__main__':
 
     attentions = attentions.reshape(nh, w_featmap, h_featmap)
     attentions = nn.functional.interpolate(attentions.unsqueeze(0), scale_factor=args.patch_size, mode="nearest")[0].cpu().numpy()
-
+    print(attentions.shape)
+    attn_avg = np.mean(attentions, axis=0)
+    print(attn_avg.shape)
     # save attentions heatmaps
     os.makedirs(args.output_dir, exist_ok=True)
     torchvision.utils.save_image(torchvision.utils.make_grid(img, normalize=True, scale_each=True), os.path.join(args.output_dir, "img.png"))
@@ -206,6 +232,10 @@ if __name__ == '__main__':
         fname = os.path.join(args.output_dir, "attn-head" + str(j) + ".png")
         plt.imsave(fname=fname, arr=attentions[j], format='png')
         print(f"{fname} saved.")
+
+    fname = os.path.join(args.output_dir, "attn-head-avg.png")
+    plt.imsave(fname=fname, arr=attn_avg, format='png')
+    print(f"{fname} saved.")
 
     if args.threshold is not None:
         image = skimage.io.imread(os.path.join(args.output_dir, "img.png"))
