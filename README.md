@@ -4,16 +4,15 @@ DINO는 Vision Transformer를 self-supervised로 학습하는 방법을 제안�
 이때 저자들은 self-attention map 시각화 결과, 이미지 속 객체를 매우 뚜렷하게 구분하는 것을 확인합니다.  
 Semantic segmentation 정보를 주지 않았음에도 불구하고 아래 그림과 같이 객체를 잘 구분해 많은 관심을 받았습니다.  
 
-자세한 내용은 **Emerging Properties in Self-Supervised Vision Transformers**(ICCV 2021) 논문을 확인해주시기 바랍니다.  
+Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화 했으며,  
+특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화했을 때도 관련있는 부분들의 attention이 높았습니다. 
+
+자세한 내용은 **Emerging Properties in Self-Supervised Vision Transformers**(ICCV 2021)을 참고해주시기 바랍니다.  
 [[`blogpost`](https://ai.facebook.com/blog/dino-paws-computer-vision-with-self-supervised-transformers-and-10x-more-efficient-training)] [[`arXiv`](https://arxiv.org/abs/2104.14294)] [[`Yannic Kilcher's video`](https://www.youtube.com/watch?v=h3ij3F3cPIk)]
 
 <div align="center">
   <img width="100%" alt="Self-attention from a Vision Transformer with 8x8 patches trained with DINO" src=".github/attention_maps.png">
 </div>
-  
-Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화한 것입니다.  
-뿐만 아니라 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자, 관련있는 부분들의 attention이 높았습니다. 
-  
   
 ## Cross-attention visualization
 [ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 Vision-Language model에서는  
@@ -28,7 +27,8 @@ cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각�
 <div align="center">
   <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src="overall_process.png">
 </div>
-  
+
+# Conclusion
 해당 결과를 통해 supervised 방식으로 단어와 이미지를 matching 해주지 않아도,  
 Self-supervised learning 과정에서 연관성을 학습함을 알 수 있습니다.
 객체와 관련 없는 부분도 높은 attention 값을 가지지만,  
