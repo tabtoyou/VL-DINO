@@ -28,7 +28,7 @@ cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각�
   <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src="overall_process.png">
 </div>
 
-# Conclusion
+## Conclusion
 해당 결과를 통해 supervised 방식으로 단어와 이미지를 matching 해주지 않아도,  
 Self-supervised learning 과정에서 연관성을 학습함을 알 수 있습니다.
 객체와 관련 없는 부분도 높은 attention 값을 가지지만,  
