@@ -29,12 +29,13 @@ cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각�
 </div>
 
 ## Usage
-1. DINO github repository를 참고해 환경설정을 해줍니다.
-2. ALBEF github [link](https://github.com/salesforce/ALBEF)에 있는 사전학습된 모델을 다운받습니다.
-3. visualize_attn_upper.sh path 수정 후 실행
+1. [DINO github](https://github.com/facebookresearch/dino)을 참고해 환경설정을 해줍니다.
+2. [ALBEF github](https://github.com/salesforce/ALBEF)에 있는 사전학습된 모델을 다운받습니다.
+3. visualize_attn_upper.sh 파일의 path 수정 후 실행
 
-  sh visualize_attn_upper.sh 
-
+```
+sh visualize_attn_upper.sh 
+```
 ## Conclusion
 해당 결과를 통해 supervised 방식으로 단어와 이미지를 matching 해주지 않아도,  
 Self-supervised learning 과정에서 연관성을 학습함을 알 수 있습니다.  
