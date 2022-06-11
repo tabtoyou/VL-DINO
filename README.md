@@ -17,7 +17,7 @@ Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사�
 ## Cross-attention visualization
 [ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 Vision-Language model에서는  
 Transformer의 self-attention이 아닌 **cross-attention**으로 이미지와 언어 사이의 정보를 통합했습니다.  
-DINO의 시각화 결과에 다소 충격을 받고, 멀티모달 transformer의 cross-attention map을 확인해 보고 싶었습니다.  
+DINO의 unimoal 결과를 확장해 멀티모달 transformer의 cross-attention map을 확인해 보고 싶었습니다.  
   
 vision-language에 대한 학습이 잘 이루어졌다면, 문장의 각 단어와 이미지 내 객체 사이의 alignment를  
 cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각했습니다.  
@@ -27,6 +27,13 @@ cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각�
 <div align="center">
   <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src="overall_process.png">
 </div>
+
+## Usage
+1. DINO github repository를 참고해 환경설정을 해줍니다.
+2. ALBEF github [link](https://github.com/salesforce/ALBEF)에 있는 사전학습된 모델을 다운받습니다.
+3. visualize_attn_upper.sh path 수정 후 실행
+
+  sh visualize_attn_upper.sh 
 
 ## Conclusion
 해당 결과를 통해 supervised 방식으로 단어와 이미지를 matching 해주지 않아도,  
