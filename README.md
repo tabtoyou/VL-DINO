@@ -25,7 +25,9 @@ cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각�
 그리고 COCO 데이터셋의 텍스트-이미지 쌍 데이터에 대해 ALBEF 모델의 cross-attention map을 시각화한 결과,  
 다소 noisy 하지만 단어와 객체 사이의 상관관계를 파악할 수 있었습니다.  
   
-[그림]
+<div align="center">
+  <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src=".github/overall_process.png">
+</div>
   
 해당 결과를 통해 supervised 방식으로 단어와 이미지를 matching 해주지 않아도,  
 Self-supervised learning 과정에서 연관성을 학습함을 알 수 있습니다.
