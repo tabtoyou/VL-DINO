@@ -10,20 +10,20 @@ Semantic segmentation에 대한 정보를 하나도 주지 않았음에도 불�
 <div align="center">
   <img width="100%" alt="Self-attention from a Vision Transformer with 8x8 patches trained with DINO" src=".github/attention_maps.png">
 </div>
-
-
-## Cross-attention visualization
+  
 위의 결과는 Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화한 것입니다.  
-[CLS] 뿐만 아니라 이미지 속 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자  
-실제로 그 객체와 관련있는 부분들의 attention이 높음을 확인했습니다.  
-
+[CLS] 뿐만 아니라 이미지 속 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자 실제로 관련있는 부분들의 attention이 높았습니다. 
+  
+  
+## Cross-attention visualization
 [ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 Vision-Language model에서는  
 Transformer의 self-attention이 아닌 **cross-attention**으로 이미지와 언어 사이의 정보를 통합했습니다.  
 DINO의 시각화 결과에 다소 충격을 받고, 멀티모달 transformer의 cross-attention map을 확인해 보고 싶었습니다.  
   
 vision-language에 대한 학습이 잘 이루어졌다면, 문장의 각 단어와 이미지 내 객체 사이의 alignment를  
 cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각했습니다.  
-그리고 시각화 결과 다소 noisy 하지만 단어와 객체 사이의 상관관계를 파악할 수 있었습니다.  
+그리고 COCO 데이터셋의 텍스트-이미지 쌍 데이터에 대해 ALBEF 모델의 cross-attention map을 시각화한 결과,  
+다소 noisy 하지만 단어와 객체 사이의 상관관계를 파악할 수 있었습니다.  
   
 [그림]
   
@@ -34,6 +34,7 @@ Self-supervised learning 과정에서 연관성을 학습함을 알 수 있습�
   
 최근 CLIP, DALL-E 등 vision-language domain에 대한 관심이 높아지고 있습니다.  
 멀티모달 transformer를 해석하고 이해하는 데 해당 방법이 도움이 되길 희망합니다.
+  
   
   
 ## License
