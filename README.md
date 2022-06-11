@@ -11,8 +11,8 @@ Semantic segmentation 정보를 주지 않았음에도 불구하고 아래 그�
   <img width="100%" alt="Self-attention from a Vision Transformer with 8x8 patches trained with DINO" src=".github/attention_maps.png">
 </div>
   
-위의 결과는 Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화한 것입니다.  
-[CLS] 뿐만 아니라 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자 실제로 관련있는 부분들의 attention이 높았습니다. 
+Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화한 것입니다.  
+뿐만 아니라 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화하자, 관련있는 부분들의 attention이 높았습니다. 
   
   
 ## Cross-attention visualization
