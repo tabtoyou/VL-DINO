@@ -42,8 +42,8 @@ Self-supervised learning 과정에서 연관성을 학습함을 알 수 있습�
 객체와 관련 없는 부분도 높은 attention 값을 가지지만,  
 이는 모델이 이미지를 이해할 때 객체 뿐만 아니라 배경도 함께 고려하는 것으로 해석할 수 있습니다.
   
-최근 CLIP, DALL-E 등 vision-language domain에 대한 관심이 높아지고 있습니다.  
-멀티모달 transformer를 해석하고 이해하는 데 해당 방법이 도움이 되길 희망합니다.
+최근 CLIP, DALL-E 등 vision-language domain에 대한 관심이 높아지고 있는 상황에서  
+해당 시각화 방법이 멀티모달 transformer를 해석하고 이해하는 데 도움이 되길 희망합니다.
   
   
   
