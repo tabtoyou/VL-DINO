@@ -276,9 +276,8 @@ if __name__ == '__main__':
         # interpolate
         th_attn = nn.functional.interpolate(th_attn.unsqueeze(0), scale_factor=args.patch_size, mode="nearest")[0].cpu().numpy()
 
-    nh = nt
 
-    attentions = attentions.reshape(nh, w_featmap, h_featmap)
+    attentions = attentions.reshape(nt, w_featmap, h_featmap)
     attentions = nn.functional.interpolate(attentions.unsqueeze(0), scale_factor=args.patch_size, mode="nearest")[0].cpu().detach().numpy()
     print(attentions.shape)
     attn_avg = np.mean(attentions, axis=0)
