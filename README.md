@@ -12,16 +12,17 @@
 </div>
   
 ## Cross-attention visualization
-Vision domain 뿐만 아니라 Vision-Language domain에서도 Transformer가 활용되고 있으며, [ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 논문에서는 Transformer의 self-attention이 아닌 cross-attention으로 이미지와 언어 사이의 정보를 통합했습니다. 관련 연구를 진행하던 중 DINO의 unimodal 결과를 확장해 멀티모달 transformer의 cross-attention map 텍스트 토큰과 이미지 patch들 사이의 관계를 확인하고 싶었습니다.
+Vision domain 뿐만 아니라 Vision-Language domain에서도 Transformer가 활용되고 있으며, [ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 논문에서는 Transformer의 self-attention이 아닌 cross-attention으로 이미지와 언어 사이의 정보를 통합했습니다. DINO의 결과에 적지 않은 충격을 받고, self-attention 시각화를 통한 이미지 patch들 사이의 관계 파악 방식을 멀티모달로 확장하고 싶었습니다. 멀티모달 transformer의 cross-attention map에 나타나는 텍스트 토큰과 이미지 patch들 사이의 관계를 확인할 수 있을 것이라고 생각했습니다.
   
-vision-language에 대한 학습이 잘 이루어졌다면, 문장의 각 단어와 이미지 내 객체 사이의 alignment를  
-cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각했습니다.  
-그리고 COCO 데이터셋의 텍스트-이미지 쌍 데이터에 대해 ALBEF 모델의 cross-attention map을 시각화한 결과,  
-다소 noisy 하지만 단어와 객체 사이의 상관관계를 파악할 수 있었습니다.  
+Vision-Language(VL)에 대한 학습이 잘 이루어졌다면, 문장의 각 단어와 이미지 내 객체 사이의 alignment 정보를 cross-attention map이 담고 있을 것이라는 가설을 세웠습니다. 그리고 COCO 데이터셋의 텍스트-이미지 쌍 데이터에 대해 ALBEF 모델의 cross-attention map을 시각화한 결과, 다소 noisy 하지만 단어와 객체 사이의 상관관계를 파악할 수 있었습니다.
   
 <div align="center">
   <img width="100%" alt="Cross-attention from a ALBEF multimodal Transformer" src="overall_process.png">
 </div>
+
+## Method
+Self-attention은 query, key, value 모두에 같은 input을 넣어주어 input 내 element들 사이의 관계를 학습합니다.  ALBEF와 같은 VL domain의 멀티모달 transformer는 cross-attention의 query에 text feature를 input으로 주고, key, value에 image feature를 넣어주어 text와 image 사이의 관계를 학습할 수 있습니다. 위의 그림을 예로 들면 'dog snoozing by a bike on the edge of a cobblestone street' 이라는 문장이 text encoder를 거쳐 나온 textual feature가 query로 들어가고, 이미지가 vision encoder를 거쳐 나온 visual feature는 key, value로 들어가는 것입니다. 
+
 
 ## Usage
 1. [DINO github](https://github.com/facebookresearch/dino)을 참고해 환경설정을 해줍니다.
