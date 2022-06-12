@@ -44,7 +44,8 @@ Self-supervised learning 과정에서 두 모달리티 사이의 연관성을 �
   
 최근 CLIP, DALL-E 등 vision-language domain에 대한 관심이 높아지고 있는 상황에서  
 해당 시각화 방법이 멀티모달 transformer를 해석하고 이해하는 데 도움이 되길 희망합니다.
-  
+
+더 자세한 설명은 [blog](https://cocoa-t.tistory.com/entry/Visualizing-the-multimodality-using-DINO-visualization-method)를 통해 공유하겠습니다.
   
   
 ## License
