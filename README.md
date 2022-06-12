@@ -1,11 +1,8 @@
 # Verifying Vision-Language Alignment with Cross-Attention Map
   
-최근 연구가 활발한 Vision Transformer를 self-supervised로 학습하는 방법 중 하나로 **DINO**가 있습니다.  
-저자들은 DINO의 self-attention map을 시각화한 결과, 이미지 속 객체를 매우 뚜렷하게 구분하는 것을 확인했습니다.  
-Semantic segmentation 정보를 주지 않았음에도 불구하고, 아래와 같이 객체를 잘 구분해 많은 관심을 받았습니다.  
+최근 Vision Transformer를 self-supervised로 학습하는 방법들이 활발히 연구되고 있습니다. DINO는 그 중 하나로 제안한 방법으로 학습한 모델의 self-attention map을 시각화한 결과, 이미지 속 객체를 뚜렷하게 구분하는 것을 확인했습니다. Semantic segmentation 정보를 주지 않았음에도, 아래와 같이 객체를 잘 구분해 많은 관심을 받았습니다.  
 
-Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화 했으며,  
-특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화했을 때도 관련있는 부분들의 attention이 높았습니다. 
+저자들은 Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사이의 self-attention map을 시각화했으며, 특정 객체 위치에 해당하는 patch와 다른 patch들 사이를 시각화했을 때도 관련 있는 부분들의 attention이 높았습니다.  
 
 자세한 내용은 **Emerging Properties in Self-Supervised Vision Transformers**(ICCV 2021)을 참고해주시기 바랍니다.  
 [[`blogpost`](https://ai.facebook.com/blog/dino-paws-computer-vision-with-self-supervised-transformers-and-10x-more-efficient-training)] [[`arXiv`](https://arxiv.org/abs/2104.14294)] [[`Yannic Kilcher's video`](https://www.youtube.com/watch?v=h3ij3F3cPIk)]
@@ -15,9 +12,7 @@ Vision Transformer의 마지막 layer에서 [CLS] 토큰과 다른 patch들 사�
 </div>
   
 ## Cross-attention visualization
-[ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 Vision-Language model에서는  
-Transformer의 self-attention이 아닌 **cross-attention**으로 이미지와 언어 사이의 정보를 통합했습니다.  
-DINO의 unimoal 결과를 확장해 멀티모달 transformer의 cross-attention map을 확인해 보고 싶었습니다.  
+Vision domain 뿐만 아니라 Vision-Language domain에서도 Transformer가 활용되고 있으며, [ALBEF(NeurIPS 2021, Spotlight)](https://arxiv.org/abs/2107.07651)와 같은 최신 논문에서는 Transformer의 self-attention이 아닌 cross-attention으로 이미지와 언어 사이의 정보를 통합했습니다. 관련 연구를 진행하던 중 DINO의 unimodal 결과를 확장해 멀티모달 transformer의 cross-attention map 텍스트 토큰과 이미지 patch들 사이의 관계를 확인하고 싶었습니다.
   
 vision-language에 대한 학습이 잘 이루어졌다면, 문장의 각 단어와 이미지 내 객체 사이의 alignment를  
 cross-attention map으로 어느정도 확인할 수 있을 것이라고 생각했습니다.  
